@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="../js/uploadImg.js"></script>
+    <link rel="stylesheet" href="../js/bootstrap.min.css">
+    <link rel="stylesheet" href="../js/bootstrap-table.min.css">
+    <style>
+        li {
+            float: left;
+            margin-left: 20px;
+            list-style-type :none;
+        }
+    </style>
+
+</head>
+<body>
+<div class="row">
+    <div class="col-md-2">
+        <input type="file" name="fileName" id="file1"/>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btn btn-success" id="upload">上传</button>
+
+    </div>
+</div>
+
+
+<div>
+    <table  class="table table-hover">
+        <tr>
+            <td style="font-weight:bold">文件名</td>
+            <td style="font-weight: bold">操作</td>
+        </tr>
+
+    </table>
+    <table class="table table-hover" id="list">
+        <tr  th:each="t:${up}">
+            <td th:text="${t.name}"></td>
+            <td ><a th:href="@{/download(poth=${t.id} ,name =${t.name})}" >下载</a> </td>
+        </tr>
+    </table>
+</div>
+
+<hr>
+<div class="row">
+
+    <div class="col-md-12">
+
+        <form action="" method="post" name="f1">
+            <!--显示分页信息-->
+            <div class="row">
+                <!--文字信息-->
+                <div class="col-md-6">
+                    当前第 <input name="startPage" th:value="${startPage }"  style="width: 20px"/>/[[${pageInfo.pages}]]页.一共 [[${pageInfo.total}]] 条记录
+                </div>
+                <!--点击分页-->
+                <div class="fy">
+
+                    <ul  >
+                        <li><a href="javascript:f1.startPage.value=1;f1.submit()">首页</a></li>
+                        <!--上一页-->
+                        <li>
+                            <a th:if="${pageInfo.hasPreviousPage}" href="javascript:f1.startPage.value=f1.startPage.value-1;f1.submit()" aria-label="Previous">
+                                <span aria-hidden="true">«</span>
+                            </a>
+                        </li>
+                        <!--循环遍历连续显示的页面，若是当前页就高亮显示，并且没有链接-->
+                        <li th:each="page_num:${pageInfo.navigatepageNums}"   th:class="${page_num == pageInfo.pageNum?'active':''}" >
+                            <a href="#" th:text="${page_num}" th:if="${page_num == pageInfo.pageNum}"> </a>
+                            <a th:if="${page_num != pageInfo.pageNum}" th:href="|javascript:f1.startPage.value=${page_num};f1.submit()|" th:text="${page_num}"></a>
+                        </li>
+                        <!--下一页-->
+                        <li>
+                            <a th:if="${pageInfo.hasNextPage}" href="javascript:f1.startPage.value=f1.startPage.value-0+1;f1.submit()"
+                               aria-label="Next">
+                                <span aria-hidden="true">»</span>
+                            </a>
+                        </li>
+                        <li><a th:href="|javascript:f1.startPage.value=${pageInfo.pages};f1.submit()|">尾页</a></li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</div>
+
+
+
+</div> <!-- #content -->
+
+<hr>
+<script src="../js/upload.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery.min.js"></script>
+
+<script>
+    tt()
+
+</script>
+</body>
+</html>

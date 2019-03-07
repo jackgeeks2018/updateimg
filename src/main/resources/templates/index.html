@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>图片改名</title>
+    <style>
+        /*多图上传*/
+        #inputBox{}
+        #imgBox{width: 100%;
+            height: auto;
+            overflow: hidden;}
+        .imgContainer{width: 70px;
+            height: 70px;
+            float: left;
+            overflow: hidden;
+        }
+        .imgContainer img{position: relative;
+            width: 100%;
+            height: auto;
+            display: block;}
+        .imgDelete{}
+        #nameSearch{margin-right: 10px;}
+    </style>
+
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/uploadImg.js"></script>
+    <link rel="stylesheet" href="../js/bootstrap.min.css">
+
+
+</head>
+<body>
+
+<div class="form-group col-xl-8 col-lg-8 col-md-8 col-sm-6">
+    <div class="form-group">
+        <div action="" id="upBox">
+            <label>图片改名：</label>
+            <div id="inputBox" class="input-group">
+                <input type="file"  class="form-control" name="fileName" title="请选择图片" id="file" multiple="multiple" accept="image/png,image/jpg,image/gif,image/JPEG"/>
+            </div>
+            <button id="btn"  type="button" class="btn btn-success" style="margin-top: 10px;">上传</button>
+            <div id="imgBox">
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</div>
+<SCRIPT>
+    //批量上传图片
+    imgUpload({
+        inputId:'file', //input框id
+        imgBox:'imgBox', //图片容器id
+        buttonId:'btn', //提交按钮id
+        upUrl:'/fileUpload',  //提交地址
+        data:'fileName', //参数名
+        num:"3000"//最多上传图片个数
+    })
+</SCRIPT>
+
+</body>
+</html>
